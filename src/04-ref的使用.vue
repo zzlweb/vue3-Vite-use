@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div>我的金钱： {{ money }} {{ car.price }}</div>
+    <div>我的金钱： {{ money.value }} {{ car.price }}</div>
     <button @click="money++">修改</button>
   </div>
 </template>

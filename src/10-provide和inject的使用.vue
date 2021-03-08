@@ -1,11 +1,11 @@
 <template>
   <div class="app">
-    <Demo :money='money'></Demo>
+    <Demo v-bind='money'></Demo>
   </div>
 </template>
 
 <script>
-import Demo from './demo.vue'
+import Demo from './11-inject接受数据.vue'
 import { ref , provide , reactive} from 'vue'
 export default {
   components:{

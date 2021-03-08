@@ -13,7 +13,7 @@ export default {
       }
     })
 
-    // 既然收3个参数
+    // 接收3个参数
     // 参数1：要监听的数据源 可以是一个ref 或者是一个函数
     // 参数2：回调函数 （value , oldValue）=>{}
     // 参数3：额外的配置 是一个对象 { deep: true , immediate: true }
