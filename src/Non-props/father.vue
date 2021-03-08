@@ -6,17 +6,8 @@
 
 <script>
 // $attr的使用
-import { ref } from "vue";
 import Son from "./son.vue";
 export default {
   components:{Son},
-  setup() {
-    const msg1 = ref("hello");
-    const msg2 = ref("world");
-    return {
-      msg1,
-      msg2
-    }
-  },
 };
 </script>
