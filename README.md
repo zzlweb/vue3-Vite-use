@@ -1,7 +1,7 @@
 # vue3-Vite-use
 Vue3.0常用属性写法。
 
-#### $attrs的使用
+###  $attrs的使用(2.0)
 包含了父作用域中不作为 prop 被识别 (且获取) 的 attribute 绑定 (class 和 style 除外)。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定属性 (class 和 style 除外)，并且可以通过 v-bind="$attrs" 传入内部组件——在创建高级别的组件时非常有用。
 
 #### 父组件
@@ -36,6 +36,32 @@ export default {
   mounted(){
     // 使用$attrs使用传递的属性值
     console.log(this.$attrs.msg1);
+  }
+}
+</script>
+```
+
+
+
+### 使用 ref 操作dom的写法(3.0)。
+声明ref对象，在dom上使用ref属性进行关联。通过 ref.value 进行访问。
+
+```vue
+<template>
+  <div class="app" ref="appRef"></div>
+</template>
+
+<script>
+// 在vue3.0中使用ref 操纵DOM
+import { onMounted, ref } from 'vue'
+export default {
+  setup(){
+    // 首先声明ref
+    const appRef = ref(null)
+  },
+  // 使用ref
+  onMounted(){
+    console.log(appRef.value);
   }
 }
 </script>
