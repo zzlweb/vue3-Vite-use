@@ -73,23 +73,23 @@ export default {
 ####  父组件
 ```vue
 <template>
-  <div class="father">
-    <Son v-model="count" />
+  <div>
+      <son v-model="count"></son>
   </div>
 </template>
 
 <script>
 import { reactive,toRefs } from 'vue'
-import Son from "./son.vue";
+import Son from "../components/son";
 export default {
   components:{Son},
   setup(){
     const data = reactive({
-      count : 1
+      count : 123
     })
     
     return{
-       ...toRefs(data)
+      ...toRefs(data)
     }
   }
 };
@@ -99,22 +99,20 @@ export default {
 ####  子组件
 ```vue
 <template>
-  <div class="son" @click="handleClick">
-   {{modelValue}}
-  </div>
+  <div @click="handleClick">{{ modelValue }}</div>
 </template>
 
 <script>
-import { toRefs } from 'vue'
+// import { toRefs } from "vue";
 export default {
   props:['modelValue'],
-  setup(){
-    const handleClick() {
-        this.$emit('update:modelValue', this.modelValue + 3);
-      }
-      
-    return ...toRefs(handleClick)
-  }
+  setup(props, { emit }) {
+    const handleClick = () => {
+      emit("update:modelValue", props.modelValue + 3);
+    };
+
+    return { handleClick};
+  },
 };
 </script>
 ```
