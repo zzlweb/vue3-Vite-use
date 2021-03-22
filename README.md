@@ -79,7 +79,7 @@ export default {
 </template>
 
 <script>
-import { reactive,refs } from 'vue
+import { reactive,toRefs } from 'vue
 import Son from "./son.vue";
 export default {
   components:{Son},
@@ -105,12 +105,16 @@ export default {
 </template>
 
 <script>
-import { refs } from 'vue'
+import { toRefs } from 'vue'
 export default {
   props:['modelValue'],
-  const handleClick() {
+  setup(){
+    const handleClick() {
         this.$emit('update:modelValue', this.modelValue + 3);
       }
+      
+    return ...toRefs(handleClick)
+  }
 };
 </script>
 ```
