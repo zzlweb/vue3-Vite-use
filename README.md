@@ -116,3 +116,50 @@ export default {
 };
 </script>
 ```
+####  自定义绑定值
+
+父组件
+
+```vue
+<template>
+  <div>
+      <son v-model:inputVal="data"></son>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue'
+import Son from "../components/son";
+export default {
+  components:{Son},
+  setup(){
+    const data = ref(0)
+
+    return{
+      data
+    }
+  }
+};
+</script>
+```
+子组件
+
+```vue
+<template>
+  <input type="text" :value="inputVal" @change="handleClick" />
+</template>
+
+<script>
+// import { toRefs } from "vue";
+export default {
+  props: ["inputVal"],
+  setup(props, { emit }) {
+    const handleClick = () => {
+      emit("update:inputVal", props.inputVal);
+    };
+
+    return { handleClick };
+  },
+};
+</script>
+```
