@@ -66,3 +66,51 @@ export default {
 }
 </script>
 ```
+
+### 父子组件通讯
+描述父子组件之间如何通过事件进行通讯
+
+####  父组件
+```vue
+<template>
+  <div class="father">
+    <Son v-model="count" />
+  </div>
+</template>
+
+<script>
+import { reactive,refs } from 'vue
+import Son from "./son.vue";
+export default {
+  components:{Son},
+  setup(){
+    const data = reactive({
+      count : 1
+    })
+    
+    return{
+       ...refs(data)
+    }
+  }
+};
+</script>
+```
+
+####  子组件
+```vue
+<template>
+  <div class="son" @click="handleClick">
+   {{modelValue}}
+  </div>
+</template>
+
+<script>
+import { refs } from 'vue'
+export default {
+  props:['modelValue'],
+  const handleClick() {
+        this.$emit('update:modelValue', this.modelValue + 3);
+      }
+};
+</script>
+```
