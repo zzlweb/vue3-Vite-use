@@ -79,7 +79,7 @@ export default {
 </template>
 
 <script>
-import { reactive,toRefs } from 'vue
+import { reactive,toRefs } from 'vue'
 import Son from "./son.vue";
 export default {
   components:{Son},
