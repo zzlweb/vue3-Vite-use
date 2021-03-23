@@ -163,3 +163,45 @@ export default {
 };
 </script>
 ```
+
+### 混入mixins的使用（2.0）
+```vue
+<template>
+  <div>
+    {{data}}----{{number}}
+  </div>
+</template>
+
+<script>
+// mixin混入
+// 组件data,methods优先级高于mixin data,methods 优先级。
+// 声明周期函数，先执行mixin里面的，在执行组件里面的生命周期函数。
+// 自定义属性，组件中的属性优先级高于mixin属性的优先级。
+
+// 总结：mixin混入，除了生命周期混入高于组件，其他组件优先级高。
+import { ref } from 'vue'
+import mixins from './mixins/index'
+export default {
+  mixins:[mixins],
+  setup(){
+    const data = ref(0)
+    return{
+      data
+    }
+  }
+};
+</script>
+```
+mixins
+```js
+const myMixins = {
+  data(){
+    return {
+      number : 1
+    }
+  }
+}
+
+export default myMixins
+```
+
