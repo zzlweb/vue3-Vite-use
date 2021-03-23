@@ -122,6 +122,60 @@ export default {
 </script>
 ```
 
+
+### teleport传送门的使用
+
+```vue
+<template>
+  <div class="area">
+        <button @click="handleBtnClick">按钮</button>
+        <teleport to="body">
+          <div class="mask" v-show="show">{{message}}</div>
+        </teleport>
+      </div>
+</template>
+
+<script>
+// teleport传送门。
+export default {
+  data() {
+      return {
+        show: false,
+        message: '123'
+      }
+    },
+    methods: {
+      handleBtnClick() {
+        this.show = !this.show;
+      }
+    },
+}
+</script>
+
+<style  scoped>
+.area {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 300px;
+      background: skyblue;
+    }
+    .mask {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: #000;
+      opacity: 0.5;
+      color: #fff;
+      font-size: 10px;
+    }
+</style>
+```
+
 ### 混入mixins的使用（2.0）
 ```vue
 <template>
