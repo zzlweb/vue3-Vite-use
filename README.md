@@ -261,5 +261,53 @@ export default {
 </template>
 ```
 
+####  作用域插槽的使用
+父组件
+
+```vue  
+<template>
+  <div>
+    <son v-slot="{item}">
+      <div>{{item}}</div>
+    </son>
+  </div>
+</template>
+
+<script>
+// 父组件通过v-slot接受数据,将结构传入进子组件。
+import son from "../components/son";
+export default {
+  components: {son},
+};
+</script>
+
+```
+
+子组件
+
+```vue
+<template>
+<div>
+  <slot v-for="item in list" :item="item"></slot>
+</div>
+</template>
+
+<script>
+//  子组件提供数据，
+import { reactive, toRefs } from 'vue'
+export default {
+  setup() {
+    const list = reactive({
+      list:[1,2,3]
+    })
+
+    return {
+      ...toRefs(list)
+    }
+  },
+}
+</script>
+```
+```
 
 
