@@ -1,48 +1,6 @@
 # vue3-use
 Vue3.0常用属性写法。
 
-###  $attrs的使用(2.0)
-包含了父作用域中不作为 prop 被识别 (且获取) 的 attribute 绑定 (class 和 style 除外)。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定属性 (class 和 style 除外)，并且可以通过 v-bind="$attrs" 传入内部组件——在创建高级别的组件时非常有用。
-
-#### 父组件
-```vue
-<template>
-  <div class="father">
-    <Son msg1="123" msg2="456"></Son>
-  </div>
-</template>
-
-<script>
-import Son from "./son.vue";
-export default {
-  components:{Son},
-};
-</script>
-```
-
-#### 子组件
-
-```vue
-<template>
-    <div class="item" v-bind="$attrs">123</div>
-    <div class="item" :msg1="$attrs.msg1">123</div>
-    <div class="item" :msg2="$attrs.msg2">134</div>
-</template>
-
-<script>
-export default {
-  // 当子组件不使用props接受来自父组件的值时，属性值（非动态值属性不被props识别）会被继承到子组件身上，使用inheritAtters: false 设置不继承。
-  // inheritAtters: false 
-  mounted(){
-    // 使用$attrs使用传递的属性值
-    console.log(this.$attrs.msg1);
-  }
-}
-</script>
-```
-
-
-
 ### 使用 ref 操作dom的写法(3.0)。
 声明ref对象，在dom上使用ref属性进行关联。通过 ref.value 进行访问。
 
@@ -67,7 +25,7 @@ export default {
 </script>
 ```
 
-### 父子组件通讯
+### 父子组件通讯(3.0)
 描述父子组件之间如何通过事件进行通讯
 
 ####  父组件
@@ -204,4 +162,104 @@ const myMixins = {
 
 export default myMixins
 ```
+
+###  $attrs的使用(2.0)
+包含了父作用域中不作为 prop 被识别 (且获取) 的 attribute 绑定 (class 和 style 除外)。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定属性 (class 和 style 除外)，并且可以通过 v-bind="$attrs" 传入内部组件——在创建高级别的组件时非常有用。
+
+#### 父组件
+```vue
+<template>
+  <div class="father">
+    <Son msg1="123" msg2="456"></Son>
+  </div>
+</template>
+
+<script>
+import Son from "./son.vue";
+export default {
+  components:{Son},
+};
+</script>
+```
+
+#### 子组件
+
+```vue
+<template>
+    <div class="item" v-bind="$attrs">123</div>
+    <div class="item" :msg1="$attrs.msg1">123</div>
+    <div class="item" :msg2="$attrs.msg2">134</div>
+</template>
+
+<script>
+export default {
+  // 当子组件不使用props接受来自父组件的值时，属性值（非动态值属性不被props识别）会被继承到子组件身上，使用inheritAtters: false 设置不继承。
+  // inheritAtters: false 
+  mounted(){
+    // 使用$attrs使用传递的属性值
+    console.log(this.$attrs.msg1);
+  }
+}
+</script>
+```
+
+### slot的使用（2.0）
+####  默认插槽的使用
+
+父组件
+```vue
+<template>
+  <div>
+    <son>123</son>
+  </div>
+</template>
+
+<script>
+import son from '../components/son'
+export default {
+  components:[son],
+};
+</script>
+```
+子组件
+```vue
+<template>
+<div>
+  <slot></slot>
+</div>
+</template>
+```
+
+####  具名插槽的使用
+父组件
+```vue  
+<template>
+  <div>
+    <son>
+      <template #one> 123 </template>
+
+      <template #two> 456 </template>
+    </son>
+  </div>
+</template>
+
+<script>
+import son from "../components/son";
+export default {
+  components: {son},
+};
+</script>
+
+```
+子组件
+```vue
+<template>
+<div>
+  <slot name="one"></slot>
+  <slot name="two"></slot>
+</div>
+</template>
+```
+
+
 
