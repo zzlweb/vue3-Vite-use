@@ -176,6 +176,47 @@ export default {
 </style>
 ```
 
+### h函数的使用
+h函数返回虚拟的dom节点，接受三个参数，第一个参数： type：表示节点的类型，第二个参数props,表示节点的属性，第三个参数children表示节点的值。
+
+dom的渲染过程: template --> render --> h --> vnode --> 真实的dom --> 显示到页面上
+
+使用方式
+```vue
+父组件
+<template>
+  <div>
+    <son :level="2">
+      渲染内容
+    </son>
+  </div>
+</template>
+
+<script>
+import son from "../components/son";
+export default {
+  components: {
+    son,
+  },
+};
+</script>
+
+子组件
+<script>
+import { h } from  'vue'
+//  h函数的使用
+export default {
+  props: ['level'],
+    render() {
+      return h('h' + this.level, {}, [
+        this.$slots.default(), 
+        h('h1', 'A headline'),
+      ])
+    }
+};
+</script>
+```
+
 ### 混入mixins的使用（2.0）
 ```vue
 <template>
