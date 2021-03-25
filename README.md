@@ -1,6 +1,122 @@
 # vue3-use
 Vue3.0常用属性写法。
 
+### setup 函数的使用
+
+```vue
+<template>
+  <div>
+    {{ item }}
+  </div>
+</template>
+
+<script>
+export default {
+  // created实例被完全初始化之前执行,代替beforeCreate, created
+  setup(props, context) {
+    // setup接受两个参数, 参数一: props 同 vue2
+    // 参数二: context 为一个对象 { attrs, slots, emit}
+    console.log(props, context);
+
+    return {}
+  },
+};
+</script>
+```
+
+### ref, reactive响应式引用的使用
+```vue
+<template>
+  <div>
+    {{ item }}
+  </div>
+</template>
+
+<script>
+//  ref, reactive 响应式引用
+//  原理，通过 proxy 对数据进行封装，当数据变化时，触发模版等内容的更新
+// ref 处理基础类型的数据
+// reactive处理复杂类型的数据
+import { ref, reactive, toRefs } from "vue";
+export default {
+  setup() {
+    const item = ref(0);
+    const MyObj = reactive({
+      name: "zs",
+      age: 14,
+    });
+    // 直接结构myObj得到name并不具有响应式。
+    // const { name} = MyObj
+    // return {item ,name}
+
+    // 例如
+    // reactive({ name: 'dell'}) 变成 proxy({ name: 'dell'}) 这样的一个响应式引用, name 并没有响应式。
+
+    // toRefs proxy({ name: 'dell', age: 28}), {
+    //  name: proxy({ value: 'dell'}),
+    //  age: proxy({value: 28})
+    // }
+    
+    return {
+      item,
+      ...toRefs(MyObj),
+    };
+  },
+};
+</script>
+
+```
+
+### torefs 和 toRef 的使用
+```vue  
+<template>
+  <div>{{ name }}</div>
+</template>
+
+<script>
+// toRefs 和 toRef 的使用
+import { reactive, toRefs } from "vue";
+export default {
+  setup() {
+    const myObj = reactive({
+      name: "zs",
+      age: 123,
+    });
+
+    return {
+      ...toRefs(myObj),
+    };
+  },
+};
+</script>
+```
+
+```vue
+import { reactive , toRef } from 'vue'
+<script>
+// 可以用来为源响应式对象上的 property 性创建一个 ref。然后可以将 ref 传递出去，从而保持对其源 property 的响应式连接。
+export default {
+  setup() {
+    const state = reactive({
+      foo: 1,
+      bar: 2,
+    });
+
+    const fooRef = toRef(state, "foo");
+
+    fooRef.value++;
+    console.log(state.foo); // 2
+
+    state.foo++;
+    console.log(fooRef.value); // 3
+  },
+};
+</script>
+
+
+```
+
+
 ### 使用 ref 操作dom的写法(3.0)。
 声明ref对象，在dom上使用ref属性进行关联。通过 ref.value 进行访问。
 
