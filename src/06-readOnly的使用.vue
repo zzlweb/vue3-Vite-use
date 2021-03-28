@@ -1,27 +1,28 @@
 <template>
-  <div>{{ money }}</div>
-  <div>{{car.brand}} --- {{ car.price }}</div>
+  <div>
+    <div>{{ money }}</div>
+    <div>{{ car.brand }} {{ car.price }}</div>
+  </div>
 </template>
 
 <script>
-import { reactive , ref, toRefs, readonly } from 'vue'
+import { reactive, ref, toRefs, readonly } from "vue";
 export default {
-  setup(){
-    const money = ref(100)
+  setup() {
+    const money = ref(100);
 
     const car = readonly({
-      brand : 'zs', 
-      price: 17
-    })
+      brand: "zs",
+      price: 17,
+    });
 
     return {
-      money: readonly(money), 
-      car 
-    }
-  }
-}
+      money: readonly(money),
+      car,
+    };
+  },
+};
 </script>
 
 <style>
-
 </style>
