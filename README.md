@@ -64,7 +64,6 @@ export default {
   },
 };
 </script>
-
 ```
 
 ### torefs 和 toRef 的使用
@@ -112,7 +111,6 @@ export default {
   },
 };
 </script>
-
 
 ```
 
@@ -329,6 +327,56 @@ export default {
         h('h1', 'A headline'),
       ])
     }
+};
+</script>
+```
+
+### watch和watchEffect的使用
+```vue
+<template>
+  <div>
+    <div>Name: <input v-model="name" /></div>
+    <div>Name is {{ name }}</div>
+    <div>EnglishName: <input v-model="englishName" /></div>
+    <div>EnglishName is {{ englishName }}</div>
+  </div>
+</template>
+
+<script>
+import { reactive, watch, watchEffect, toRefs } from "vue";
+// watch监听器,watchEffect监听器,
+export default {
+  setup() {
+    const nameObj = reactive({
+      name: "dell",
+      englishName: "lee",
+    });
+    // 具备一定的惰性 lazy
+    // 参数可以拿到原始和当前值
+    // 可以侦听多个数据的变化，用一个侦听器承载
+    watch(
+      [() => nameObj.name, () => nameObj.englishName],
+      ([curName, curEng], [prevName, preEng]) => {
+        console.log("watch", curName, prevName, "---", curEng, preEng);
+      },
+      { immediate: true }
+    );
+
+    // 立即执行，没有惰性 immediate
+    // 不需要传递你要侦听的内容，自动会感知代码依赖，不需要传递很多参数，只要传递一个毁掉函数
+    // 不能获取之前数据的值
+    // const stop = watchEffect(() => {
+    //   console.log(nameObj.name);
+    //   console.log(nameObj.englishName);
+    //   setTimeout(() => {
+    //     stop();
+    //   }, 5000)
+    // })
+
+    const { name, englishName } = toRefs(nameObj);
+
+    return { name, englishName };
+  },
 };
 </script>
 ```
