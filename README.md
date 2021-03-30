@@ -1,7 +1,7 @@
 # vue3-use
 Vue3.0常用属性写法。
 
-### 一个小的商城案例 
+###  [一个小的商城案例](https://github.com/zzlweb/vue3-small-mall)
 
 ### setup 函数的使用
 
